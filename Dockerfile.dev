@@ -1,0 +1,45 @@
+# Dockerfile.dev for OpenDroneMap Command Line Development Environment
+
+# Use Ubuntu 22.04 LTS as the base image, matching the GitHub repository's focus
+FROM nvidia/cuda:12.2.2-devel-ubuntu22.04
+
+# Set environment variables for non-interactive apt operations and timezone
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Etc/UTC
+
+# Set Python to unbuffered mode for real-time log output in the container
+ENV PYTHONUNBUFFERED=1
+
+# Install necessary system dependencies, build tools, Python and its development headers, and core libraries.
+# This list is comprehensive, covering most common dependencies for OpenDroneMap's C++ and Python components,
+# directly mirroring or extending what 'odm-ubuntu-22' setup script implies.
+# Crucially includes GDAL/PROJ/GEOS/YAML dev libraries for Rasterio and PyYAML, plus
+# imaging and scientific libraries often used by ODM's C++ parts (e.g., OpenCV, OpenEXR, HDF5, XML).
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    git \
+    libpdal-dev \
+    python3 \
+    python3-dev \
+    python3-pip \
+    python3-venv \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV LANG=en_US.UTF-8 \
+    LANGUAGE=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8
+
+# Upgrade pip and install common Python build tools.
+# This helps resolve compilation issues for complex Python packages (e.g., rasterio, PyYAML).
+# Ensure Cython and numpy are installed and updated, as they are crucial build dependencies.
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel Cython numpy
+
+# Set the default working directory inside the container.
+# This is where your local OpenDroneMap source code will be mounted.
+WORKDIR /code
+
+# Define the default command to execute when the container starts.
+CMD ["bash"]
+
