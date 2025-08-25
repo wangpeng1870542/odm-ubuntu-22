@@ -27,7 +27,6 @@ settings.yaml
 .setupdevenv
 __pycache__
 *.snap
-.vscode/
 storage/
 testing/
 

@@ -1,23 +1,23 @@
 version: '3.8'
 services:
-  odm-cuda:
+  odm-cuda-dev:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    image: opendronemap/odm-cuda:latest # 给你的开发镜像一个名�?
+    image: opendronemap/odm-cuda-dev:latest # 给你的开发镜像一个名�??
     volumes:
-      # 将本地的 OpenDroneMap 源码目录挂载到容器内�? /code 目录
+      # 将本地的 OpenDroneMap 源码目录挂载到容器内�?? /code 目录
       - .:/code
-      # 挂载一个数据卷用于存储 ODM 处理结果和临时文�?
-      # 这样即使容器被移除，数据也不会丢�?
+      # 挂载一个数据卷用于存储 ODM 处理结果和临时文�??
+      # 这样即使容器被移除，数据也不会丢�??
       - odm_data:/var/lib/opendronemap/data
-      # (可�?) 如果你的测试数据在本地的 ./data 目录下，可以也挂载进�?
-      # - ./data:/data
+      # (可�?) 如果你的测试数据在本地的 ./data 目录下，可以也挂载进�??
+      - E:\\BaiduNetdiskDownload\\DJI_202507281541_008_\\project:/odm_data
 
     # 确保容器启动后保持运行，通常在开发时您会手动进入容器
     # 或通过 docker-compose run 执行命令
-    stdin_open: true # 允许交互式输�?
+    stdin_open: true # 允许交互式输�??
     tty: true        # 分配一个伪终端
 
 volumes:
-  odm_data: {} # 定义数据�?
+  odm_data: {} # 定义数据�??

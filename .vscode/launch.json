@@ -1,0 +1,39 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Launch ODM run.py",
+            "type": "python",
+            "request": "launch",
+            "program": "/code/run.py",
+            "args": [
+                "--project-path",
+                "/odm_data"
+            ],
+            "env": { "PYTHONPATH": "/code/SuperBuild/install/lib/python3.8/dist-packages:/code/SuperBuild/install/bin/opensfm:${env:PYTHONPATH}",
+                    "LD_LIBRARY_PATH": "/code/SuperBuild/install/lib:${env:LD_LIBRARY_PATH}",
+                    "PDAL_DRIVER_PATH": "/code/SuperBuild/install/bin"
+                    },
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "/code"
+        },
+        {
+            "name": "Python: Current File (with ODM context)",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "/code"
+        },
+        {
+            "type": "cmake",
+            "request": "launch",
+            "name": "Debug portfile(s)",
+            "cmakeDebugType": "external",
+            "pipeName": "\\\\.\\pipe\\vcpkg_ext_portfile_dbg",
+            "preLaunchTask": "Debug vcpkg commands"
+        }
+    ]
+}
